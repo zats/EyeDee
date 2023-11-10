@@ -2,17 +2,19 @@
 
 import SwiftUI
 
+@Observable
+final class ViewModel {
+    var documents: [Document] = []
+    var selectedDocument: Document?
+}
+
 @main
 struct EyeDeeApp: App {
-    @State private var document: [Document] = []
-    @State private var selectedDocument: Document?
+    @State private var viewModel = ViewModel()
 
     var body: some Scene {
         WindowGroup {
-            ContentView(
-                documents: $document,
-                selectedDocument: $selectedDocument
-            )
+            ContentView(viewModel: viewModel)
         }
     }
 }

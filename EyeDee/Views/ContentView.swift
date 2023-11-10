@@ -3,18 +3,17 @@
 import SwiftUI
 
 struct ContentView: View {
-    @Binding var documents: [Document]
-    @Binding var selectedDocument: Document?
+    @Bindable var viewModel: ViewModel
     
     @State private var columnVisibility: NavigationSplitViewVisibility = .all
     
     var body: some View {
         let _ = Self._printChanges()
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            DocumentList(documents: $documents, selectedDocument: $selectedDocument)
+            DocumentList(viewModel: viewModel)
         } detail: {
-            if let selectedDocument = $selectedDocument.unwrapped() {
-                DocumentViewer(document: selectedDocument)
+            if let document = viewModel.selectedDocument {
+                DocumentViewer(document: document)
             } else {
                 Text("No document selected")
             }
@@ -25,8 +24,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView(documents: .constant([
-        Document(template: .creditCard),
-        Document(template: .login),
-    ]), selectedDocument: .constant(nil))
+    ContentView(viewModel: ViewModel())
 }

@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct DocumentViewer: View {
-    @Binding var document: Document
+    @Bindable var document: Document
     
     var body: some View {
         let _ = Self._printChanges()
@@ -25,5 +25,5 @@ struct DocumentViewer: View {
 }
 
 #Preview {
-    DocumentViewer(document: .constant(Document(template: .creditCard)))
+    DocumentViewer(document: Document(template: .creditCard))
 }

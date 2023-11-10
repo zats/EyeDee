@@ -3,13 +3,12 @@
 import SwiftUI
 
 struct DocumentList: View {
-    @Binding var documents: [Document]
-    @Binding var selectedDocument: Document?
+    @Bindable var viewModel: ViewModel
     
     var body: some View {
         let _ = Self._printChanges()
-        List(selection: $selectedDocument) {
-            ForEach($documents, id:\.self) { document in
+        List(selection: $viewModel.selectedDocument) {
+            ForEach($viewModel.documents, id:\.self) { document in
                 VStack(alignment: .leading) {
                     HStack(spacing: 6) {
                         if document.wrappedValue.isFavourite {
@@ -27,17 +26,17 @@ struct DocumentList: View {
                 }
                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
                     Button("Favourite", systemImage: "star") {
-                        document.isFavourite.wrappedValue = !document.wrappedValue.isFavourite
+                        document.isFavourite.wrappedValue = !document.isFavourite.wrappedValue
                     }
                     .tint(.yellow)
                 }
             }
             .onDelete(perform: { indexSet in
                 indexSet.forEach {
-                    if selectedDocument == documents[$0] {
-                        selectedDocument = nil
+                    if viewModel.selectedDocument == viewModel.documents[$0] {
+                        viewModel.selectedDocument = nil
                     }
-                    documents.remove(at: $0)
+                    viewModel.documents.remove(at: $0)
                 }
             })
         }
@@ -47,8 +46,8 @@ struct DocumentList: View {
                     ForEach(Template.allCases, id: \.self) { template in
                         Button(template.defaultTitle) {
                             let document = Document(template: template)
-                            documents.append(document)
-                            selectedDocument = document
+                            viewModel.documents.append(document)
+                            viewModel.selectedDocument = document
                         }
                     }
                 }
@@ -59,12 +58,6 @@ struct DocumentList: View {
 
 #Preview {
     NavigationStack {
-        DocumentList(
-            documents: .constant([
-                Document(template: .login),
-                Document(template: .creditCard),
-            ]),
-            selectedDocument: .constant(nil)
-        )
+        DocumentList(viewModel: ViewModel())
     }
 }
