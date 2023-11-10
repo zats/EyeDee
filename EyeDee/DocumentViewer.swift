@@ -11,7 +11,14 @@ struct DocumentViewer: View {
             VStack(alignment: .leading) {
                 Text(document.id.uuidString)
                     .font(.caption)
-                TextField("title", text: $document.title)
+                HStack(spacing: 6) {
+                    if document.isFavourite {
+                        Image(systemName: "star.fill")
+                            .foregroundColor(.yellow)
+                            .font(.caption)
+                    }
+                    TextField("title", text: $document.title)
+                }
             }
         }
     }

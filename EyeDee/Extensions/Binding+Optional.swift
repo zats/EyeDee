@@ -6,8 +6,10 @@ extension Binding {
     func unwrapped<Wrapped>() -> Binding<Wrapped>? where Value == Wrapped? {
         guard let wrappedValue else { return nil }
         return Binding<Wrapped>(get: {
-            wrappedValue
+            print(#function, wrappedValue)
+            return wrappedValue
         }, set: { newValue in
+            print(#function, newValue, self.wrappedValue)
             self.wrappedValue = newValue
         })
 

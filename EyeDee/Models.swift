@@ -9,22 +9,13 @@ struct Document: Identifiable, Hashable {
     
     var rows: [Row]
     
-    init(id: UUID = UUID(), title: String, rows: [Row]) {
+    var isFavourite: Bool
+    
+    init(id: UUID = UUID(), title: String, rows: [Row], isFavourite: Bool) {
         self.id = id
         self.title = title
         self.rows = rows
-    }
-    
-    static func == (lhs: Document, rhs: Document) -> Bool {
-        lhs.id == rhs.id
-        && lhs.title == rhs.title
-        && lhs.rows == rhs.rows
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(title)
-        hasher.combine(rows)
+        self.isFavourite = isFavourite
     }
 }
 
@@ -37,18 +28,6 @@ struct Row: Identifiable, Hashable {
         self.id = id
         self.title = title
         self.value = value
-    }
-    
-    static func == (lhs: Row, rhs: Row) -> Bool {
-        lhs.id == rhs.id
-        && lhs.title == rhs.title
-        && lhs.value == rhs.value
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-        hasher.combine(title)
-        hasher.combine(value)
     }
 }
 
@@ -97,7 +76,8 @@ extension Document {
     init(template: Template) {
         self.init(
             title: template.defaultTitle,
-            rows: template.defaultRows
+            rows: template.defaultRows,
+            isFavourite: false
         )
     }
 }

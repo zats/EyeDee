@@ -11,12 +11,25 @@ struct DocumentList: View {
         List(selection: $selectedDocument) {
             ForEach($documents, id:\.self) { document in
                 VStack(alignment: .leading) {
-                    Text(document.wrappedValue.title)
-                    Text(document.wrappedValue.id.uuidString)
+                    HStack(spacing: 6) {
+                        if document.wrappedValue.isFavourite {
+                            Image(systemName: "star.fill")
+                                .foregroundColor(.yellow)
+                                .font(.caption)
+                        }
+                        Text(document.wrappedValue.title)
+                    }
+                    Text(document.id.uuidString)
                         .font(.caption)
                         .foregroundColor(.secondary)
                         .truncationMode(.tail)
                         .lineLimit(1)
+                }
+                .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                    Button("Favourite", systemImage: "star") {
+                        document.isFavourite.wrappedValue = !document.wrappedValue.isFavourite
+                    }
+                    .tint(.yellow)
                 }
             }
             .onDelete(perform: { indexSet in
