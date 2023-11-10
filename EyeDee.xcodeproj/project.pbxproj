@@ -40,6 +40,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5CDBD8012AFDD93900344F4C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5CEDDD812AFDBE9F0027C18A /* ContentView.swift */,
+				5CEDDD832AFDBF750027C18A /* DocumentViewer.swift */,
+				5CEDDD732AFDBB490027C18A /* DocumentList.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		5CEDDD652AFDBB490027C18A = {
 			isa = PBXGroup;
 			children = (
@@ -60,10 +70,8 @@
 			isa = PBXGroup;
 			children = (
 				5CEDDD712AFDBB490027C18A /* EyeDeeApp.swift */,
-				5CEDDD812AFDBE9F0027C18A /* ContentView.swift */,
-				5CEDDD832AFDBF750027C18A /* DocumentViewer.swift */,
-				5CEDDD732AFDBB490027C18A /* DocumentList.swift */,
 				5CEDDD7F2AFDBB590027C18A /* Models.swift */,
+				5CDBD8012AFDD93900344F4C /* Views */,
 				5CEDDD872AFDC4930027C18A /* Extensions */,
 				5CEDDD752AFDBB4D0027C18A /* Assets.xcassets */,
 				5CEDDD772AFDBB4D0027C18A /* Preview Content */,

@@ -2,7 +2,22 @@
 
 import Foundation
 
-struct Document: Identifiable, Hashable {
+@Observable
+final class Document: Identifiable, Hashable {
+    static func == (lhs: Document, rhs: Document) -> Bool {
+        lhs.id == rhs.id
+        && lhs.title == rhs.title
+        && lhs.rows == rhs.rows
+        && lhs.isFavourite == rhs.isFavourite
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(title)
+        hasher.combine(rows)
+        hasher.combine(isFavourite)
+    }
+    
     let id: UUID
     
     var title: String
@@ -19,7 +34,20 @@ struct Document: Identifiable, Hashable {
     }
 }
 
-struct Row: Identifiable, Hashable {
+@Observable
+final class Row: Identifiable, Hashable {
+    static func == (lhs: Row, rhs: Row) -> Bool {
+        lhs.id == rhs.id
+        && lhs.title == rhs.title
+        && lhs.value == rhs.value
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+        hasher.combine(title)
+        hasher.combine(value)
+    }
+    
     let id: UUID
     var title: String
     var value: Value
@@ -73,7 +101,7 @@ enum Template: CaseIterable {
 }
 
 extension Document {
-    init(template: Template) {
+    convenience init(template: Template) {
         self.init(
             title: template.defaultTitle,
             rows: template.defaultRows,
