@@ -2,8 +2,7 @@
 
 import Foundation
 
-@Observable
-class Document: Identifiable, Hashable {
+struct Document: Identifiable, Hashable {
     let id: UUID
     
     var title: String
@@ -29,8 +28,7 @@ class Document: Identifiable, Hashable {
     }
 }
 
-@Observable
-class Row: Identifiable, Hashable {
+struct Row: Identifiable, Hashable {
     let id: UUID
     var title: String
     var value: Value
@@ -96,7 +94,7 @@ enum Template: CaseIterable {
 }
 
 extension Document {
-    convenience init(template: Template) {
+    init(template: Template) {
         self.init(
             title: template.defaultTitle,
             rows: template.defaultRows
