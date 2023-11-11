@@ -8,15 +8,15 @@ struct DocumentList: View {
     var body: some View {
         let _ = Self._printChanges()
         List(selection: $viewModel.selectedDocument) {
-            ForEach($viewModel.documents, id:\.self) { document in
+            ForEach(viewModel.documents, id: \.self) { document in
                 VStack(alignment: .leading) {
                     HStack(spacing: 6) {
-                        if document.wrappedValue.isFavourite {
+                        if document.isFavourite {
                             Image(systemName: "star.fill")
                                 .foregroundColor(.yellow)
                                 .font(.caption)
                         }
-                        Text(document.wrappedValue.title)
+                        Text(document.title)
                     }
                     Text(document.id.uuidString)
                         .font(.caption)
@@ -26,7 +26,7 @@ struct DocumentList: View {
                 }
                 .swipeActions(edge: .leading, allowsFullSwipe: true) {
                     Button("Favourite", systemImage: "star") {
-                        document.isFavourite.wrappedValue = !document.isFavourite.wrappedValue
+                        document.isFavourite = !document.isFavourite
                     }
                     .tint(.yellow)
                 }

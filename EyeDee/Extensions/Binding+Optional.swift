@@ -9,7 +9,6 @@ extension Binding {
             print(#function, wrappedValue)
             return wrappedValue
         }, set: { newValue in
-            print(#function, newValue, self.wrappedValue)
             self.wrappedValue = newValue
         })
 
