@@ -6,16 +6,10 @@ import Foundation
 final class Document: Identifiable, Hashable {
     static func == (lhs: Document, rhs: Document) -> Bool {
         lhs.id == rhs.id
-        && lhs.title == rhs.title
-        && lhs.rows == rhs.rows
-        && lhs.isFavourite == rhs.isFavourite
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-        hasher.combine(title)
-        hasher.combine(rows)
-        hasher.combine(isFavourite)
     }
     
     let id: UUID
@@ -38,14 +32,10 @@ final class Document: Identifiable, Hashable {
 final class Row: Identifiable, Hashable {
     static func == (lhs: Row, rhs: Row) -> Bool {
         lhs.id == rhs.id
-        && lhs.title == rhs.title
-        && lhs.value == rhs.value
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-        hasher.combine(title)
-        hasher.combine(value)
     }
     
     let id: UUID
